@@ -8,6 +8,8 @@ fullVersion="$(grep -m1 'ENV LOGSTASH_VERSION' Dockerfile | cut -d' ' -f3)"
 version="${fullVersion%[.-]*}"
 
 echo '# maintainer: InfoSiftr <github@infosiftr.com> (@infosiftr)'
+echo
+echo "$fullVersion: ${url}@${commit}"
 echo "$version: ${url}@${commit}"
 echo "latest: ${url}@${commit}"
 
