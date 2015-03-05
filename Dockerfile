@@ -1,4 +1,4 @@
-FROM elasticsearch:1.4
+FROM java:7-jre
 
 ENV LOGSTASH_VERSION 1.4.2
 
