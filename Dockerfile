@@ -1,17 +1,19 @@
 FROM java:7-jre
 
-ENV LOGSTASH_VERSION 1.4.2
+# http://www.logstash.net/docs/1.4.2/repositories
+# http://packages.elasticsearch.org/GPG-KEY-elasticsearch
+RUN apt-key adv --keyserver pool.sks-keyservers.net --recv-keys 46095ACC8548582C1A2699A9D27D666CD88E42B4
 
-#From https://download.elasticsearch.org/logstash/logstash/logstash-1.4.2.tar.gz.sha1.txt
-ENV LOGSTASH_DOWNLOAD_SHA1 d59ef579c7614c5df9bd69cfdce20ed371f728ff
-ENV LOGSTASH_HOME /usr/local/logstash
+ENV LOGSTASH_MAJOR 1.4
+ENV LOGSTASH_VERSION 1.4.2-1-2c0f5a1
 
-RUN curl -o logstash.tar.gz https://download.elasticsearch.org/logstash/logstash/logstash-$LOGSTASH_VERSION.tar.gz \
-	&& echo "$LOGSTASH_DOWNLOAD_SHA1 logstash.tar.gz" | sha1sum -c - \
-	&& mkdir $LOGSTASH_HOME \
-	&& tar -zxf logstash.tar.gz --strip-components 1 -C $LOGSTASH_HOME \
-	&& rm logstash.tar.gz
+RUN echo "deb http://packages.elasticsearch.org/logstash/${LOGSTASH_MAJOR}/debian stable main" > /etc/apt/sources.list.d/logstash.list
 
-ENV PATH=$PATH:$LOGSTASH_HOME/bin
+RUN set -x \
+	&& apt-get update \
+	&& apt-get install -y --no-install-recommends logstash=$LOGSTASH_VERSION \
+	&& rm -rf /var/lib/apt/lists/*
+
+ENV PATH /opt/logstash/bin:$PATH
 
 CMD ["logstash"]
