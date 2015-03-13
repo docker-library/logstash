@@ -1,5 +1,15 @@
 FROM java:7-jre
 
+# grab gosu for easy step-down from root
+RUN gpg --keyserver pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4
+RUN arch="$(dpkg --print-architecture)"; \
+	set -x; \
+	curl -o /usr/local/bin/gosu -SL "https://github.com/tianon/gosu/releases/download/1.2/gosu-$arch" \
+	&& curl -o /usr/local/bin/gosu.asc -SL "https://github.com/tianon/gosu/releases/download/1.2/gosu-$arch.asc" \
+	&& gpg --verify /usr/local/bin/gosu.asc \
+	&& rm /usr/local/bin/gosu.asc \
+	&& chmod +x /usr/local/bin/gosu
+
 # http://www.logstash.net/docs/1.4.2/repositories
 # http://packages.elasticsearch.org/GPG-KEY-elasticsearch
 RUN apt-key adv --keyserver pool.sks-keyservers.net --recv-keys 46095ACC8548582C1A2699A9D27D666CD88E42B4
@@ -16,4 +26,7 @@ RUN set -x \
 
 ENV PATH /opt/logstash/bin:$PATH
 
+COPY ./docker-entrypoint.sh /
+
+ENTRYPOINT ["/docker-entrypoint.sh"]
 CMD ["logstash"]
