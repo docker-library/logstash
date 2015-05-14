@@ -14,8 +14,8 @@ RUN arch="$(dpkg --print-architecture)" \
 # http://packages.elasticsearch.org/GPG-KEY-elasticsearch
 RUN apt-key adv --keyserver ha.pool.sks-keyservers.net --recv-keys 46095ACC8548582C1A2699A9D27D666CD88E42B4
 
-ENV LOGSTASH_MAJOR 1.4
-ENV LOGSTASH_VERSION 1.4.2-1-2c0f5a1
+ENV LOGSTASH_MAJOR 1.5
+ENV LOGSTASH_VERSION 1:1.5.0-1
 
 RUN echo "deb http://packages.elasticsearch.org/logstash/${LOGSTASH_MAJOR}/debian stable main" > /etc/apt/sources.list.d/logstash.list
 
