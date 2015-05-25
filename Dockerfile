@@ -26,6 +26,8 @@ RUN set -x \
 
 ENV PATH /opt/logstash/bin:$PATH
 
+COPY ./config /usr/share/logstash/config
+
 COPY ./docker-entrypoint.sh /
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
