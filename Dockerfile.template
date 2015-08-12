@@ -14,8 +14,8 @@ RUN arch="$(dpkg --print-architecture)" \
 # http://packages.elasticsearch.org/GPG-KEY-elasticsearch
 RUN apt-key adv --keyserver ha.pool.sks-keyservers.net --recv-keys 46095ACC8548582C1A2699A9D27D666CD88E42B4
 
-ENV LOGSTASH_MAJOR 1.5
-ENV LOGSTASH_VERSION 1:1.5.3-1
+ENV LOGSTASH_MAJOR %%LOGSTASH_MAJOR%%
+ENV LOGSTASH_VERSION %%LOGSTASH_VERSION%%
 
 RUN echo "deb http://packages.elasticsearch.org/logstash/${LOGSTASH_MAJOR}/debian stable main" > /etc/apt/sources.list.d/logstash.list
 
@@ -26,7 +26,7 @@ RUN set -x \
 
 ENV PATH /opt/logstash/bin:$PATH
 
-COPY ./docker-entrypoint.sh /
+COPY docker-entrypoint.sh /
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
-CMD ["logstash"]
+CMD ["logstash", "agent"]
