@@ -10,8 +10,8 @@ RUN arch="$(dpkg --print-architecture)" \
 	&& rm /usr/local/bin/gosu.asc \
 	&& chmod +x /usr/local/bin/gosu
 
-# http://www.logstash.net/docs/1.4.2/repositories
-# http://packages.elasticsearch.org/GPG-KEY-elasticsearch
+# https://www.elastic.co/guide/en/logstash/2.0/package-repositories.html
+# https://packages.elasticsearch.org/GPG-KEY-elasticsearch
 RUN apt-key adv --keyserver ha.pool.sks-keyservers.net --recv-keys 46095ACC8548582C1A2699A9D27D666CD88E42B4
 
 ENV LOGSTASH_MAJOR 1.5
