@@ -1,5 +1,14 @@
 FROM java:8-jre
 
+# install plugin dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+		libzmq3 \
+	&& rm -rf /var/lib/apt/lists/*
+
+# the "ffi-rzmq-core" gem is very picky about where it looks for libzmq.so
+RUN mkdir -p /usr/local/lib \
+	&& ln -s /usr/lib/*/libzmq.so.3 /usr/local/lib/libzmq.so
+
 # grab gosu for easy step-down from root
 RUN gpg --keyserver ha.pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4
 RUN arch="$(dpkg --print-architecture)" \
