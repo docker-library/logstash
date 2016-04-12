@@ -21,14 +21,14 @@ RUN set -x \
 	&& chmod +x /usr/local/bin/gosu \
 	&& gosu nobody true
 
-# https://www.elastic.co/guide/en/logstash/2.0/package-repositories.html
-# https://packages.elasticsearch.org/GPG-KEY-elasticsearch
+# https://www.elastic.co/guide/en/logstash/2.3/package-repositories.html
+# https://packages.elastic.co/GPG-KEY-elasticsearch
 RUN apt-key adv --keyserver ha.pool.sks-keyservers.net --recv-keys 46095ACC8548582C1A2699A9D27D666CD88E42B4
 
 ENV LOGSTASH_MAJOR %%LOGSTASH_MAJOR%%
 ENV LOGSTASH_VERSION %%LOGSTASH_VERSION%%
 
-RUN echo "deb http://packages.elasticsearch.org/logstash/${LOGSTASH_MAJOR}/debian stable main" > /etc/apt/sources.list.d/logstash.list
+RUN echo "deb http://packages.elastic.co/logstash/${LOGSTASH_MAJOR}/debian stable main" > /etc/apt/sources.list.d/logstash.list
 
 RUN set -x \
 	&& apt-get update \

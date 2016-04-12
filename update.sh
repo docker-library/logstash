@@ -13,7 +13,7 @@ travisEnv=
 for version in "${versions[@]}"; do
 	travisEnv='\n  - VERSION='"$version$travisEnv"
 	
-	fullVersion="$(curl -fsSL "http://packages.elasticsearch.org/logstash/$version/debian/dists/stable/main/binary-amd64/Packages" | awk -F ': ' '$1 == "Package" { pkg = $2 } pkg == "logstash" && $1 == "Version" { print $2 }' | sort -rV | head -n1)"
+	fullVersion="$(curl -fsSL "http://packages.elastic.co/logstash/$version/debian/dists/stable/main/binary-amd64/Packages" | awk -F ': ' '$1 == "Package" { pkg = $2 } pkg == "logstash" && $1 == "Version" { print $2 }' | sort -rV | head -n1)"
 	if [ -z "$fullVersion" ]; then
 		echo >&2 "warning: cannot find full version for $version"
 		continue
