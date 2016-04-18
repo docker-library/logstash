@@ -16,10 +16,12 @@ url='git://github.com/docker-library/logstash'
 
 echo '# maintainer: InfoSiftr <github@infosiftr.com> (@infosiftr)'
 
+tilde='~'
 for version in "${versions[@]}"; do
 	commit="$(cd "$version" && git log -1 --format='format:%H' -- Dockerfile $(awk 'toupper($1) == "COPY" { for (i = 2; i < NF; i++) { print $i } }' Dockerfile))"
 	fullVersion="$(grep -m1 'ENV LOGSTASH_VERSION' "$version/Dockerfile" | cut -d' ' -f3)"
 	fullVersion="${fullVersion#*:}" # cut off the Debian epoch
+	fullVersion="${fullVersion//$tilde/-}"
 	
 	versionAliases=()
 	while [ "$fullVersion" != "$version" -a "${fullVersion%[.-]*}" != "$fullVersion" ]; do
