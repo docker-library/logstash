@@ -12,7 +12,13 @@ versions=( "${versions[@]%/}" )
 travisEnv=
 for version in "${versions[@]}"; do
 	travisEnv='\n  - VERSION='"$version$travisEnv"
-	
+
+	major="${version%%.*}"
+	logstashPath='/usr/share/logstash/bin'
+	if [ "$major" -lt 5 ]; then
+		logstashPath='/opt/logstash/bin'
+	fi
+
 	fullVersion="$(curl -fsSL "http://packages.elastic.co/logstash/$version/debian/dists/stable/main/binary-amd64/Packages" | awk -F ': ' '$1 == "Package" { pkg = $2 } pkg == "logstash" && $1 == "Version" { print $2 }' | sort -rV | head -n1)"
 	if [ -z "$fullVersion" ]; then
 		echo >&2 "warning: cannot find full version for $version"
@@ -24,6 +30,7 @@ for version in "${versions[@]}"; do
 		sed '
 			s/%%LOGSTASH_MAJOR%%/'"$version"'/g;
 			s/%%LOGSTASH_VERSION%%/'"$fullVersion"'/g;
+			s!%%LOGSTASH_PATH%%!'"$logstashPath"'!g;
 		' Dockerfile.template > "$version/Dockerfile"
 	)
 done

@@ -35,7 +35,7 @@ RUN set -x \
 	&& apt-get install -y --no-install-recommends logstash=$LOGSTASH_VERSION \
 	&& rm -rf /var/lib/apt/lists/*
 
-ENV PATH /opt/logstash/bin:$PATH
+ENV PATH %%LOGSTASH_PATH%%:$PATH
 
 COPY docker-entrypoint.sh /
 
