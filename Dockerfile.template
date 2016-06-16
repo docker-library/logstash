@@ -37,6 +37,9 @@ RUN set -x \
 
 ENV PATH %%LOGSTASH_PATH%%:$PATH
 
+# necessary for 5.0+ (overriden via "--path.settings", ignored by < 5.0)
+ENV LS_SETTINGS_DIR /etc/logstash
+
 COPY docker-entrypoint.sh /
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
