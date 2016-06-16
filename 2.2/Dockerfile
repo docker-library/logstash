@@ -39,6 +39,13 @@ ENV PATH /opt/logstash/bin:$PATH
 
 # necessary for 5.0+ (overriden via "--path.settings", ignored by < 5.0)
 ENV LS_SETTINGS_DIR /etc/logstash
+# comment out some troublesome configuration parameters
+#   path.log: logs should go to stdout
+#   path.config: No config files found: /etc/logstash/conf.d/*
+RUN set -ex \
+	&& if [ -f "$LS_SETTINGS_DIR/logstash.yml" ]; then \
+		sed -ri 's!^(path.log|path.config):!#&!g' "$LS_SETTINGS_DIR/logstash.yml"; \
+	fi
 
 COPY docker-entrypoint.sh /
 
