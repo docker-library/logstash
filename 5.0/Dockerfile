@@ -50,4 +50,4 @@ RUN set -ex \
 COPY docker-entrypoint.sh /
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
-CMD ["logstash", "agent"]
+CMD ["-e", ""]
