@@ -48,6 +48,6 @@ RUN set -ex \
 	fi
 
 COPY docker-entrypoint.sh /
-EXPOSE 5043 12201
+EXPOSE 5043 12201/udp
 ENTRYPOINT ["/docker-entrypoint.sh"]
 CMD ["-e", ""]
