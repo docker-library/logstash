@@ -52,6 +52,6 @@ RUN set -ex; \
 	fi
 
 COPY docker-entrypoint.sh /
-
+EXPOSE 5043 12201
 ENTRYPOINT ["/docker-entrypoint.sh"]
 CMD ["-e", ""]
