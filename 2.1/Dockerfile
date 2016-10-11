@@ -2,6 +2,7 @@ FROM openjdk:8-jre
 
 # install plugin dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
+		apt-transport-https \
 		libzmq3 \
 	&& rm -rf /var/lib/apt/lists/*
 
@@ -25,10 +26,9 @@ RUN set -x \
 # https://packages.elastic.co/GPG-KEY-elasticsearch
 RUN apt-key adv --keyserver ha.pool.sks-keyservers.net --recv-keys 46095ACC8548582C1A2699A9D27D666CD88E42B4
 
-ENV LOGSTASH_MAJOR 2.1
-ENV LOGSTASH_VERSION 1:2.1.3-1
+RUN echo 'deb http://packages.elastic.co/logstash/2.1/debian stable main' > /etc/apt/sources.list.d/logstash.list
 
-RUN echo "deb http://packages.elastic.co/logstash/${LOGSTASH_MAJOR}/debian stable main" > /etc/apt/sources.list.d/logstash.list
+ENV LOGSTASH_VERSION 1:2.1.3-1
 
 RUN set -x \
 	&& apt-get update \

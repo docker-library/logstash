@@ -14,12 +14,14 @@ for version in "${versions[@]}"; do
 	travisEnv='\n  - VERSION='"$version$travisEnv"
 
 	major="${version%%.*}"
+	debRepo="https://artifacts.elastic.co/packages/${major}.x-prerelease/apt"
 	logstashPath='/usr/share/logstash/bin'
 	if [ "$major" -lt 5 ]; then
+		debRepo="http://packages.elastic.co/logstash/$version/debian"
 		logstashPath='/opt/logstash/bin'
 	fi
 
-	fullVersion="$(curl -fsSL "http://packages.elastic.co/logstash/$version/debian/dists/stable/main/binary-amd64/Packages" | awk -F ': ' '$1 == "Package" { pkg = $2 } pkg == "logstash" && $1 == "Version" { print $2 }' | sort -rV | head -n1)"
+	fullVersion="$(curl -fsSL "$debRepo/dists/stable/main/binary-amd64/Packages.gz" | gunzip | awk -F ': ' '$1 == "Package" { pkg = $2 } pkg == "logstash" && $1 == "Version" { print $2 }' | sort -rV | head -n1)"
 	if [ -z "$fullVersion" ]; then
 		echo >&2 "warning: cannot find full version for $version"
 		continue
@@ -28,8 +30,8 @@ for version in "${versions[@]}"; do
 		set -x
 		cp docker-entrypoint.sh "$version/"
 		sed '
-			s/%%LOGSTASH_MAJOR%%/'"$version"'/g;
-			s/%%LOGSTASH_VERSION%%/'"$fullVersion"'/g;
+			s!%%LOGSTASH_DEB_REPO%%!'"$debRepo"'!g;
+			s!%%LOGSTASH_VERSION%%!'"$fullVersion"'!g;
 			s!%%LOGSTASH_PATH%%!'"$logstashPath"'!g;
 		' Dockerfile.template > "$version/Dockerfile"
 	)
