@@ -14,7 +14,7 @@ for version in "${versions[@]}"; do
 	travisEnv='\n  - VERSION='"$version$travisEnv"
 
 	major="${version%%.*}"
-	debRepo="https://artifacts.elastic.co/packages/${major}.x-prerelease/apt"
+	debRepo="https://artifacts.elastic.co/packages/${major}.x/apt"
 	logstashPath='/usr/share/logstash/bin'
 	if [ "$major" -lt 5 ]; then
 		debRepo="http://packages.elastic.co/logstash/$version/debian"
