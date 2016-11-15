@@ -28,7 +28,7 @@ RUN apt-key adv --keyserver ha.pool.sks-keyservers.net --recv-keys 46095ACC85485
 
 RUN echo 'deb http://packages.elastic.co/logstash/2.4/debian stable main' > /etc/apt/sources.list.d/logstash.list
 
-ENV LOGSTASH_VERSION 1:2.4.0-1
+ENV LOGSTASH_VERSION 1:2.4.1-1
 
 RUN set -x \
 	&& apt-get update \
