@@ -8,7 +8,8 @@ if [ "${1:0:1}" = '-' ]; then
 fi
 
 # Run as user "logstash" if the command is "logstash"
-if [ "$1" = 'logstash' ]; then
+# allow the container to be started with `--user`
+if [ "$1" = 'logstash' -a "$(id -u)" = '0' ]; then
 	set -- gosu logstash "$@"
 fi
 
