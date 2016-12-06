@@ -13,6 +13,9 @@ cd "$(dirname "$(readlink -f "$BASH_SOURCE")")"
 versions=( */ )
 versions=( "${versions[@]%/}" )
 
+# sort version numbers with highest first
+IFS=$'\n'; versions=( $(echo "${versions[*]}" | sort -rV) ); unset IFS
+
 # get the most recent commit which modified any of "$@"
 fileCommit() {
 	git log -1 --format='format:%H' HEAD -- "$@"
@@ -53,7 +56,7 @@ join() {
 for version in "${versions[@]}"; do
 	commit="$(dirCommit "$version")"
 
-	fullVersion="$(git show "$commit":"$version/Dockerfile" | awk '$1 == "ENV" && $2 == "LOGSTASH_VERSION" { gsub(/^.*:/, "", $3); gsub(/~/, "-", $3); print $3; exit }')"
+	fullVersion="$(git show "$commit":"$version/Dockerfile" | awk '$1 == "ENV" && $2 == "LOGSTASH_VERSION" { print $3; exit }')"
 
 	versionAliases=()
 	while [ "$fullVersion" != "$version" -a "${fullVersion%[.-]*}" != "$fullVersion" ]; do
@@ -71,4 +74,20 @@ for version in "${versions[@]}"; do
 		GitCommit: $commit
 		Directory: $version
 	EOE
+
+	for variant in alpine; do
+		[ -f "$version/$variant/Dockerfile" ] || continue
+
+		commit="$(dirCommit "$version/$variant")"
+
+		variantAliases=( "${versionAliases[@]/%/-$variant}" )
+		variantAliases=( "${variantAliases[@]//latest-/}" )
+
+		echo
+		cat <<-EOE
+			Tags: $(join ', ' "${variantAliases[@]}")
+			GitCommit: $commit
+			Directory: $version/$variant
+		EOE
+	done
 done

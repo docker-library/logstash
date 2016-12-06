@@ -19,10 +19,10 @@ ENV GPG_KEY 46095ACC8548582C1A2699A9D27D666CD88E42B4
 ENV LOGSTASH_PATH /opt/logstash/bin
 ENV PATH $LOGSTASH_PATH:$PATH
 
-ENV LOGSTASH_VERSION 2.2.4
-ENV LOGSTASH_TARBALL="https://download.elastic.co/logstash/logstash/logstash-2.2.4.tar.gz" \
+ENV LOGSTASH_VERSION 2.4.1
+ENV LOGSTASH_TARBALL="https://download.elastic.co/logstash/logstash/logstash-2.4.1.tar.gz" \
 	LOGSTASH_TARBALL_ASC="" \
-	LOGSTASH_TARBALL_SHA1="4e64cbc617d1b9cbf20869daab22cb4df68895ed"
+	LOGSTASH_TARBALL_SHA1="5ee4f3fa0ad4b182b3f00b4181a20c4e31a907b4"
 
 RUN set -ex; \
 	\

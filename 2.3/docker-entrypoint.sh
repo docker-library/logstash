@@ -1,9 +1,8 @@
 #!/bin/bash
-
 set -e
 
-# Add logstash as command if needed
-if [ "${1:0:1}" = '-' ]; then
+# first arg is `-f` or `--some-option`
+if [ "${1#-}" != "$1" ]; then
 	set -- logstash "$@"
 fi
 
