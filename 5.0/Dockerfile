@@ -28,8 +28,8 @@ RUN apt-key adv --keyserver ha.pool.sks-keyservers.net --recv-keys 46095ACC85485
 
 RUN echo 'deb https://artifacts.elastic.co/packages/5.x/apt stable main' > /etc/apt/sources.list.d/logstash.list
 
-ENV LOGSTASH_VERSION 5.0.2
-ENV LOGSTASH_DEB_VERSION 1:5.0.2-1
+ENV LOGSTASH_VERSION 5.1.1
+ENV LOGSTASH_DEB_VERSION 1:5.1.1-1
 
 RUN set -x \
 	&& apt-get update \
