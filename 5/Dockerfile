@@ -34,7 +34,7 @@ RUN set -ex; \
 # https://www.elastic.co/guide/en/logstash/5.0/installing-logstash.html#_apt
 RUN echo 'deb https://artifacts.elastic.co/packages/5.x/apt stable main' > /etc/apt/sources.list.d/logstash.list
 
-ENV LOGSTASH_VERSION 5.2.0
+ENV LOGSTASH_VERSION 5.2.0 
 ENV LOGSTASH_DEB_VERSION 1:5.2.0-1
 
 RUN set -x \
