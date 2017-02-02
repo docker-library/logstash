@@ -58,6 +58,9 @@ RUN set -ex; \
 		truncate --size=0 "$LS_SETTINGS_DIR/log4j2.properties"; \
 	fi
 
+
+RUN sed -i 's/\/dev\/random/\/dev\/urandom/g' $JAVA_HOME/lib/security/java.security
+
 COPY docker-entrypoint.sh /
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
