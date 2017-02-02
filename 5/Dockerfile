@@ -34,8 +34,9 @@ RUN set -ex; \
 # https://www.elastic.co/guide/en/logstash/5.0/installing-logstash.html#_apt
 RUN echo 'deb https://artifacts.elastic.co/packages/5.x/apt stable main' > /etc/apt/sources.list.d/logstash.list
 
-ENV LOGSTASH_VERSION 5.2.0
+ENV LOGSTASH_VERSION 5.2.0 
 ENV LOGSTASH_DEB_VERSION 1:5.2.0-1
+ENV LS_HEAP_SIZE=1G 
 
 RUN set -x \
 	&& apt-get update \
@@ -57,6 +58,13 @@ RUN set -ex; \
 		cp "$LS_SETTINGS_DIR/log4j2.properties" "$LS_SETTINGS_DIR/log4j2.properties.dist"; \
 		truncate --size=0 "$LS_SETTINGS_DIR/log4j2.properties"; \
 	fi
+
+RUN JAVA_OPTS="$JAVA_OPTS -Xmx3g" 
+
+
+RUN sed -i 's/\/dev\/random/\/dev\/urandom/g' $JAVA_HOME/lib/security/java.security 
+
+RUN sed -i -e 's#^LS_HEAP_SIZE="500m"$#LS_HEAP_SIZE="1g"#' /usr/share/logstash/bin/logstash 
 
 COPY docker-entrypoint.sh /
 
