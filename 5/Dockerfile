@@ -60,6 +60,7 @@ RUN set -ex; \
 
 
 RUN sed -i 's/\/dev\/random/\/dev\/urandom/g' $JAVA_HOME/lib/security/java.security
+RUN sed -i -e 's#^LS_HEAP_SIZE="500m"$#LS_HEAP_SIZE="1g"#' /usr/share/logstash/bin/logstash
 
 COPY docker-entrypoint.sh /
 
