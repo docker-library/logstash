@@ -7,6 +7,7 @@ RUN addgroup -S logstash && adduser -S -G logstash logstash
 RUN apk add --no-cache \
 # env: can't execute 'bash': No such file or directory
 		bash \
+		libc6-compat \
 		libzmq
 
 # grab su-exec for easy step-down from root
