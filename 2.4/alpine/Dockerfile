@@ -50,7 +50,7 @@ RUN set -ex; \
 		export GNUPGHOME="$(mktemp -d)"; \
 		gpg --keyserver ha.pool.sks-keyservers.net --recv-keys "$GPG_KEY"; \
 		gpg --batch --verify logstash.tar.gz.asc logstash.tar.gz; \
-		rm -r "$GNUPGHOME" logstash.tar.gz.asc; \
+		rm -rf "$GNUPGHOME" logstash.tar.gz.asc; \
 	fi; \
 	\
 	dir="$(dirname "$LOGSTASH_PATH")"; \
