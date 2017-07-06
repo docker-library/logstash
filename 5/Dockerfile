@@ -3,7 +3,7 @@ FROM openjdk:8-jre
 # install plugin dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
 		apt-transport-https \
-		libzmq3 \
+		libzmq5 \
 	&& rm -rf /var/lib/apt/lists/*
 
 # the "ffi-rzmq-core" gem is very picky about where it looks for libzmq.so
@@ -37,10 +37,15 @@ RUN echo 'deb https://artifacts.elastic.co/packages/5.x/apt stable main' > /etc/
 ENV LOGSTASH_VERSION 5.5.0
 ENV LOGSTASH_DEB_VERSION 1:5.5.0-1
 
-RUN set -x \
-	&& apt-get update \
-	&& apt-get install -y --no-install-recommends "logstash=$LOGSTASH_DEB_VERSION" \
-	&& rm -rf /var/lib/apt/lists/*
+RUN set -ex; \
+	case "$LOGSTASH_VERSION" in \
+# W: http://packages.elastic.co/logstash/2.4/debian/dists/stable/Release.gpg: Signature by key 46095ACC8548582C1A2699A9D27D666CD88E42B4 uses weak digest algorithm (SHA1)
+# https://github.com/elastic/logstash/issues/5761
+		2.*) apt-get update -o 'APT::Hashes::SHA1::Weak=yes' ;; \
+		*) apt-get update ;; \
+	esac; \
+	apt-get install -y --no-install-recommends "logstash=$LOGSTASH_DEB_VERSION"; \
+	rm -rf /var/lib/apt/lists/*
 
 ENV PATH /usr/share/logstash/bin:$PATH
 
