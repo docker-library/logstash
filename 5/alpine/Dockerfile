@@ -20,10 +20,10 @@ ENV GPG_KEY 46095ACC8548582C1A2699A9D27D666CD88E42B4
 ENV LOGSTASH_PATH /usr/share/logstash/bin
 ENV PATH $LOGSTASH_PATH:$PATH
 
-ENV LOGSTASH_VERSION 5.6.7
-ENV LOGSTASH_TARBALL="https://artifacts.elastic.co/downloads/logstash/logstash-5.6.7.tar.gz" \
-	LOGSTASH_TARBALL_ASC="https://artifacts.elastic.co/downloads/logstash/logstash-5.6.7.tar.gz.asc" \
-	LOGSTASH_TARBALL_SHA1="67a55717534842ec666e95a6c877932c24a1dda4"
+ENV LOGSTASH_VERSION 5.6.8
+ENV LOGSTASH_TARBALL="https://artifacts.elastic.co/downloads/logstash/logstash-5.6.8.tar.gz" \
+	LOGSTASH_TARBALL_ASC="https://artifacts.elastic.co/downloads/logstash/logstash-5.6.8.tar.gz.asc" \
+	LOGSTASH_TARBALL_SHA1="8b78f1a034c5ca9b3d384a15eadbae80b2c45ad3"
 
 RUN set -ex; \
 	\
