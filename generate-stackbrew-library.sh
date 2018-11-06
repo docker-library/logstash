@@ -2,8 +2,7 @@
 set -eu
 
 declare -A aliases=(
-	[2.4]='2'
-	[5]='latest'
+	#[5]='latest'
 )
 
 self="$(basename "$BASH_SOURCE")"
@@ -55,17 +54,26 @@ join() {
 for version in "${versions[@]}"; do
 	commit="$(dirCommit "$version")"
 
+	# Strip suffix qualifiers from versions like "6.4.3-alpha1"
+	plainVersion="${version%-*}"
+
 	fullVersion="$(git show "$commit":"$version/Dockerfile" | awk '$1 == "ENV" && $2 == "LOGSTASH_VERSION" { print $3; exit }')"
 
 	versionAliases=()
-	while [ "$fullVersion" != "$version" -a "${fullVersion%[.-]*}" != "$fullVersion" ]; do
+	if [ "${plainVersion%%.*}" -ge 6 ]; then
+		fullVersion="$(git show "$commit":"$version/Dockerfile" | awk '$1 == "FROM" && $2 ~ /^docker.elastic.co/ { gsub(/^[^:]+:|@.+$/, "", $2); print $2; exit }')"
 		versionAliases+=( $fullVersion )
-		fullVersion="${fullVersion%[.-]*}"
-	done
-	versionAliases+=(
-		$version
-		${aliases[$version]:-}
-	)
+		# TODO decide whether to support X.Y aliases as well
+	else
+		while [ "$fullVersion" != "$version" -a "${fullVersion%[.-]*}" != "$fullVersion" ]; do
+			versionAliases+=( $fullVersion )
+			fullVersion="${fullVersion%[.-]*}"
+		done
+		versionAliases+=(
+			$version
+			${aliases[$version]:-}
+		)
+	fi
 
 	echo
 	cat <<-EOE
