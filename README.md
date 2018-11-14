@@ -1,12 +1,6 @@
-# DEPRECATED
+# https://github.com/elastic/logstash-docker
 
-This image has been deprecated in favor of the [official `logstash` image](https://www.elastic.co/guide/en/logstash/current/docker.html) provided and maintained by [elastic.co](https://www.elastic.co/). The list of images available from Elastic can be found at [www.docker.elastic.co](https://www.docker.elastic.co/). The images found here will receive no further updates once the `6.0.0` release is available upstream. Please adjust your usage accordingly.
-
-Elastic provides open-source support for Logstash via the [elastic/logstash GitHub repository](https://github.com/elastic/logstash) and the Docker image via the [elastic/logstash-docker GitHub repository](https://github.com/elastic/logstash-docker), as well as community support via its [forums](https://discuss.elastic.co/c/logstash).
-
-# https://github.com/docker-library/logstash
-
-## Maintained by: [the Docker Community](https://github.com/docker-library/logstash)
+## Maintained by: [the Elastic Team](https://github.com/elastic/logstash-docker)
 
 This is the Git repo of the [Docker "Official Image"](https://docs.docker.com/docker-hub/official_repos/) for [logstash](https://hub.docker.com/_/logstash/) (not to be confused with any official logstash image provided by logstash upstream). See [the Docker Hub page](https://hub.docker.com/_/logstash/) for the full readme on how to use this Docker image and for information regarding contributing and issues.
 
