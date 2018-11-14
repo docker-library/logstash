@@ -48,7 +48,7 @@ RUN set -ex; \
 	if [ "$LOGSTASH_TARBALL_ASC" ]; then \
 		wget -O logstash.tar.gz.asc "$LOGSTASH_TARBALL_ASC"; \
 		export GNUPGHOME="$(mktemp -d)"; \
-		gpg --keyserver ha.pool.sks-keyservers.net --recv-keys "$GPG_KEY"; \
+		gpg --batch --keyserver ha.pool.sks-keyservers.net --recv-keys "$GPG_KEY"; \
 		gpg --batch --verify logstash.tar.gz.asc logstash.tar.gz; \
 		rm -rf "$GNUPGHOME" logstash.tar.gz.asc; \
 	fi; \
