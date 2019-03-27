@@ -4,7 +4,7 @@
 FROM %%UPSTREAM_IMAGE_DIGEST%%
 
 # The upstream image was built by:
-#   https://github.com/elastic/logstash-docker/tree/%%LOGSTASH_VERSION%%
+#   %%UPSTREAM_DOCKERFILE_LINK%%
 
 # For a full list of supported images and tags visit https://www.docker.elastic.co
 
