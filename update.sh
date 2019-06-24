@@ -47,13 +47,20 @@ for version in "${versions[@]}"; do
 	# Format image reference (image@sha)
 	upstreamImageDigest="$upstreamImage@$digest"
 
-	upstreamDockerfileLink="https://github.com/elastic/logstash-docker/tree/$fullVersion"
+	upstreamDockerfileLink="https://github.com/elastic/dockerfiles/tree/v$fullVersion/logstash"
 	upstreamDockerfile="${upstreamDockerfileLink//tree/raw}/Dockerfile"
+
+	skipDockerfileCheck=
+	if [ "$version" = '7' ]; then
+		# TODO ditch this once 7 moves over to https://github.com/elastic/dockerfiles too?
+		upstreamDockerfileLink="https://github.com/elastic/logstash-docker/tree/$fullVersion"
+		skipDockerfileCheck=1
+	fi
 
 	(
 		set -x
 		curl -fsSL -o /dev/null "$upstreamDockerfileLink" # make sure the upstream Dockerfile link exists
-		# TODO curl -fsSL "$upstreamDockerfile" | grep -P "\Q$fullVersion" # ... and that it contains the right version
+		[ -n "$skipDockerfileCheck" ] || curl -fsSL "$upstreamDockerfile" | grep -P "\Q$fullVersion" # ... and that it contains the right version
 	)
 
 	sed -e 's!%%LOGSTASH_VERSION%%!'"$fullVersion"'!g' \
