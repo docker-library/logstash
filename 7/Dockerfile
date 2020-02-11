@@ -1,10 +1,10 @@
-# Logstash 7.5.2
+# Logstash 7.6.0
 
 # This image re-bundles the Docker image from the upstream provider, Elastic.
-FROM docker.elastic.co/logstash/logstash:7.5.2@sha256:8fc82532b609b4d98fc62fa909d7a3813317bff4d96b1ba883fbdd6681f1a870
+FROM docker.elastic.co/logstash/logstash:7.6.0@sha256:4eece90ef86ecd402280a9b5bf192c203f5cc6b31646a5ad940ec29a925ccf10
 
 # The upstream image was built by:
-#   https://github.com/elastic/dockerfiles/tree/v7.5.2/logstash
+#   https://github.com/elastic/dockerfiles/tree/v7.6.0/logstash
 
 # For a full list of supported images and tags visit https://www.docker.elastic.co
 
