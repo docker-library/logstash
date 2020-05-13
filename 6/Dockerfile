@@ -6,6 +6,9 @@ FROM docker.elastic.co/logstash/logstash:6.8.9@sha256:0ed94c58fd5c706867d19a0b26
 # The upstream image was built by:
 #   https://github.com/elastic/dockerfiles/tree/v6.8.9/logstash
 
+# The build can be reproduced locally via:
+#   docker build 'https://github.com/elastic/dockerfiles.git#v6.8.9:logstash'
+
 # For a full list of supported images and tags visit https://www.docker.elastic.co
 
 # For Logstash documentation visit https://www.elastic.co/guide/en/logstash/current/docker.html
