@@ -1,6 +1,6 @@
-# https://github.com/elastic/logstash-docker
+# https://github.com/elastic/logstash
 
-## Maintained by: [the Elastic Team](https://github.com/elastic/logstash-docker)
+## Maintained by: [the Elastic Team](https://github.com/elastic/logstash)
 
 This is the Git repo of the [Docker "Official Image"](https://github.com/docker-library/official-images#what-are-official-images) for [`logstash`](https://hub.docker.com/_/logstash/) (not to be confused with any official `logstash` image provided by `logstash` upstream). See [the Docker Hub page](https://hub.docker.com/_/logstash/) for the full readme on how to use this Docker image and for information regarding contributing and issues.
 
