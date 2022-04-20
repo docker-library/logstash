@@ -1,14 +1,14 @@
-# Logstash 7.17.2
+# Logstash 7.17.3
 
 # This image re-bundles the Docker image from the upstream provider, Elastic.
-FROM docker.elastic.co/logstash/logstash:7.17.2@sha256:997b8172362d66cceb41ccc4743c5e22a1ab093aa057513fd7e20779478c76fb
+FROM docker.elastic.co/logstash/logstash:7.17.3@sha256:8d00eb2640bc22435b20287a9bf0eeac1c22d34c3391c90dfc95ed4dac3fb6d9
 # Supported Bashbrew Architectures: amd64 arm64v8
 
 # The upstream image was built by:
-#   https://github.com/elastic/dockerfiles/tree/v7.17.2/logstash
+#   https://github.com/elastic/dockerfiles/tree/v7.17.3/logstash
 
 # The build can be reproduced locally via:
-#   docker build 'https://github.com/elastic/dockerfiles.git#v7.17.2:logstash'
+#   docker build 'https://github.com/elastic/dockerfiles.git#v7.17.3:logstash'
 
 # For a full list of supported images and tags visit https://www.docker.elastic.co
 
