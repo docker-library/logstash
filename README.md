@@ -14,7 +14,7 @@ For outstanding `logstash` image PRs, check [PRs with the "library/logstash" lab
 
 ---
 
--	[![build status badge](https://img.shields.io/github/workflow/status/docker-library/logstash/GitHub%20CI/master?label=GitHub%20CI)](https://github.com/docker-library/logstash/actions?query=workflow%3A%22GitHub+CI%22+branch%3Amaster)
+-	[![build status badge](https://img.shields.io/github/actions/workflow/status/docker-library/logstash/ci.yml?branch=master&label=GitHub%20CI)](https://github.com/docker-library/logstash/actions?query=workflow%3A%22GitHub+CI%22+branch%3Amaster)
 -	[![build status badge](https://img.shields.io/jenkins/s/https/doi-janky.infosiftr.net/job/update.sh/job/logstash.svg?label=Automated%20update.sh)](https://doi-janky.infosiftr.net/job/update.sh/job/logstash/)
 
 | Build | Status | Badges | (per-arch) |
