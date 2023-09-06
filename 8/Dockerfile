@@ -1,14 +1,14 @@
-# Logstash 8.9.1
+# Logstash 8.9.2
 
 # This image re-bundles the Docker image from the upstream provider, Elastic.
-FROM docker.elastic.co/logstash/logstash:8.9.1@sha256:3801b746dfd94c1a662fa6323a88beab88497b7f117568e5e33389d3717afd2a
+FROM docker.elastic.co/logstash/logstash:8.9.2@sha256:dab9c69405fcedbc5122e8ba7edb66185807b0d71272bcbf21c0616f9e0d0be2
 # Supported Bashbrew Architectures: amd64 arm64v8
 
 # The upstream image was built by:
-#   https://github.com/elastic/dockerfiles/tree/v8.9.1/logstash
+#   https://github.com/elastic/dockerfiles/tree/v8.9.2/logstash
 
 # The build can be reproduced locally via:
-#   docker build 'https://github.com/elastic/dockerfiles.git#v8.9.1:logstash'
+#   docker build 'https://github.com/elastic/dockerfiles.git#v8.9.2:logstash'
 
 # For a full list of supported images and tags visit https://www.docker.elastic.co
 
